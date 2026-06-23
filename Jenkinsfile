@@ -1,44 +1,17 @@
-pipeline {
-    agent any
- 
-    stages {
- 
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
- 
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm ci'
-            }
-        }
- 
-        stage('Install Playwright Browsers') {
-            steps {
-                sh 'npx playwright install'
-            }
-        }
- 
-        stage('Run Playwright Tests') {
-            steps {
-                sh 'npx playwright test'
-            }
-        }
+stage('Install Dependencies') {
+    steps {
+        bat 'npm install'
     }
- 
-    post {
-        always {
-            archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
-        }
- 
-        success {
-            echo 'Playwright tests passed successfully.'
-        }
- 
-        failure {
-            echo 'Playwright tests failed.'
-        }
+}
+
+stage('Install Playwright Browsers') {
+    steps {
+        bat 'npx playwright install'
+    }
+}
+
+stage('Run Playwright Tests') {
+    steps {
+        bat 'npx playwright test'
     }
 }
