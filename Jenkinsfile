@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    stages {
+   stages {
 
         stage('Checkout') {
             steps {
@@ -23,7 +23,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat 'npx playwright test'
+                bat 'npx playwright test --reporter=html'
             }
         }
     }
